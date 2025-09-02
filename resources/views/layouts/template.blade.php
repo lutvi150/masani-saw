@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 @include('layouts.head')
+
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
@@ -27,20 +28,7 @@
                     <br />
 
                     <!-- sidebar menu -->
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-                            <h3>Menu</h3>
-                            <div class="nav side-menu">
-                                <li><a href="javascript:void(0)"><i class="fa fa-home"></i> Home</a></li>
-                                <li><a href="javascript:void(0)"><i class="fa fa-cube"></i> Lokasi</a></li>
-                                <li><a href="javascript:void(0)"><i class="fa fa-bookmark-o"></i> Kriteria</a></li>
-                                <li><a href="javascript:void(0)"><i class="fa fa-book"></i> Hitung</a></li>
-                                <li><a href="javascript:void(0)"><i class="fa fa-map-marker"></i> Pemetaan</a></li>
-                            </div>
-                        </div>
-
-
-                    </div>
+                    @include('layouts.sidebar')
                     <!-- /sidebar menu -->
 
                     <!-- /menu footer buttons -->
@@ -89,7 +77,7 @@
             <!-- /top navigation -->
 
             <!-- page content -->
-           @yield('content')
+            @yield('content')
             <!-- /page content -->
 
             <!-- footer content -->
