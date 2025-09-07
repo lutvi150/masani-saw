@@ -44,5 +44,4 @@ Route::controller(NilaiController::class)->group(function () {
     // other
     Route::post('nilai/update-nilai', 'update_data')->name('nilai.update-data');
     Route::get('nilai/get-nilai', 'get_data')->name('nilai.get-data');
-    Route::get('nilai/get-score-mix-max', 'min_max')->name('nilai.get-score-mix-max');
 });

@@ -39,7 +39,7 @@
                     </div>
                     <div class="x_content">
                         <div class="text-center">
-                            <h2>Selamat Datang</h2>
+                            <h2>Selamat Datang tes upload</h2>
                         </div>
                     </div>
                 </div>
@@ -50,16 +50,16 @@
 @endsection
 @section('script')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             get_data();
         });
-        get_data=()=>{
+        get_data = () => {
             Notiflix.Block.arrows('.count-loading');
             $.ajax({
                 type: "GET",
                 url: "{{ route('dashboard.get-data') }}",
                 dataType: "JSON",
-                success: function (response) {
+                success: function(response) {
                     $(".data-lokasi").text(response.lokasis);
                     $(".data-kriteria").text(response.kriterias);
                     Notiflix.Block.remove('.count-loading');
