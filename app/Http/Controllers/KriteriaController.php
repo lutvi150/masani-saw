@@ -36,9 +36,12 @@ class KriteriaController extends Controller
         ]);
 
         Kriteria::create($request->all());
-
-        return redirect()->route('kriteria.index')
-            ->with('success', 'Kriteria created successfully.');
+        return response()->json([
+            'status'  => true,
+            'message' => 'Kriteria Berhasil Ditambahkan',
+            'data'    => $request->all(),
+        ]);
+        // return redirect()->route('kriteria.index')->with('success', 'Kriteria created successfully.');
     }
 
     /**
@@ -52,37 +55,64 @@ class KriteriaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Kriteria $kriteria)
+    public function edit($id)
     {
-        return view('contents.kriteria.edit', compact('kriteria'));
+        $kriteria = Kriteria::find($id);
+
+        if (! $kriteria) {
+            return response()->json(['error' => 'Data tidak ditemukan'], 404);
+        }
+
+        return response()->json($kriteria);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Kriteria $kriteria)
+    public function update(Request $request, $id)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama'      => 'required|string|max:255',
             'sifat'     => 'required|in:benefit,cost',
             'bobot'     => 'required|numeric|min:0',
             'deskripsi' => 'nullable|string',
         ]);
 
-        $kriteria->update($request->all());
+        $kriteria = Kriteria::findOrFail($id);
+        $kriteria->update($validated);
 
-        return redirect()->route('kriteria.index')
-            ->with('success', 'Kriteria updated successfully');
+        return response()->json([
+            'status'  => true,
+            'message' => 'Kriteria berhasil diperbarui',
+            'data'    => $kriteria,
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Kriteria $kriteria)
+    public function destroy($id)
     {
+        $kriteria = Kriteria::findOrFail($id);
         $kriteria->delete();
 
-        return redirect()->route('kriteria.index')
-            ->with('success', 'Kriteria deleted successfully');
+        return response()->json([
+            'status'  => true,
+            'message' => 'Kriteria berhasil dihapus',
+        ]);
+    }
+    public function kriteria_code()
+    {
+        $last     = Kriteria::orderBy('id', 'desc')->first();
+        $lastCode = $last ? intval(substr($last->code, 1)) : 0;
+        // $newCode  = 'C' . str_pad($lastCode + 1, 2, '0', STR_PAD_LEFT);
+        $newCode = ($lastCode + 1);
+        return response()->json(
+            [
+                'status'  => 'success',
+                'message' => 'Kode Kriteria Berhasil Ditambahkan',
+                'data'    => $newCode,
+            ]
+        );
     }
 }

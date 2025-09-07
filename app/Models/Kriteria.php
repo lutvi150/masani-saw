@@ -13,6 +13,7 @@ class Kriteria extends Model
         'sifat',
         'bobot',
         'deskripsi',
+        'code',
     ];
 
 }

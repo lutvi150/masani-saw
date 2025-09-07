@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('sifat');
             $table->string('bobot');
             $table->string('deskripsi');
+            $table->string('code');
             $table->timestamps();
         });
     }

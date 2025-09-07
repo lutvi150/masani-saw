@@ -1,7 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Models\Kriteria;
+use App\Models\Lokasi;
 use App\Models\Nilai;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,49 @@ class NilaiController extends Controller
      */
     public function index()
     {
-        //
+        $nilais    = Nilai::all();
+        $lokasis   = Lokasi::all();
+        $kriterias = Kriteria::all();
+        return view('contents.nilai.index', compact('nilais', 'lokasis', 'kriterias'));
     }
+    public function get_data()
+    {
+        $nilais    = Nilai::all();
+        $lokasis   = Lokasi::all();
+        $kriterias = Kriteria::all();
+        return response()->json(
+            [
+                'status' => true,
+                'data'   => [
+                    'nilais'    => $nilais,
+                    'lokasis'   => $lokasis,
+                    'kriterias' => $kriterias,
+                ]]);
+    }
+    public function update_data(Request $request)
+    {
+        $request->validate([
+            'lokasi_id'   => 'required|exists:lokasis,id',
+            'kriteria_id' => 'required|exists:kriterias,id',
+            'nilai'       => 'required|numeric|min:0',
+        ]);
 
+        $nilai = Nilai::updateOrCreate(
+            [
+                'lokasi_id'   => $request->lokasi_id,
+                'kriteria_id' => $request->kriteria_id,
+            ],
+            [
+                'nilai' => $request->nilai,
+            ]
+        );
+
+        return response()->json([
+            'status'  => true,
+            'message' => 'Nilai berhasil disimpan',
+            'data'    => $nilai,
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -28,7 +69,17 @@ class NilaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'lokasi_id'   => 'required|exists:lokasis,id',
+            'kriteria_id' => 'required|exists:kriterias,id',
+            'nilai'       => 'required|numeric|min:0|max:100',
+        ]);
+        $nilai = Nilai::create($request->all());
+        return response()->json([
+            'status'  => true,
+            'message' => 'Nilai Berhasil Ditambahkan',
+            'data'    => $nilai,
+        ]);
     }
 
     /**
