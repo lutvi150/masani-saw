@@ -5,11 +5,11 @@
         <div class="row tile_count">
             <div class="col-md-6 col-sm-4 col-xs-6 tile_stats_count">
                 <span class="count_top"><i class="fa fa-user"></i> Data Lokasi</span>
-                <div class="count">18</div>
+                <div class="count count-loading data-lokasi">0</div>
             </div>
             <div class="col-md-6 col-sm-4 col-xs-6 tile_stats_count">
                 <span class="count_top"><i class="fa fa-clock-o"></i> Kriteria</span>
-                <div class="count">5</div>
+                <div class="count count-loading data-kriteria">0</div>
             </div>
         </div>
         <!-- /top tiles -->
@@ -47,4 +47,24 @@
         </div>
         <br />
     </div>
+@endsection
+@section('script')
+    <script>
+        $(document).ready(function () {
+            get_data();
+        });
+        get_data=()=>{
+            Notiflix.Block.arrows('.count-loading');
+            $.ajax({
+                type: "GET",
+                url: "{{ route('dashboard.get-data') }}",
+                dataType: "JSON",
+                success: function (response) {
+                    $(".data-lokasi").text(response.lokasis);
+                    $(".data-kriteria").text(response.kriterias);
+                    Notiflix.Block.remove('.count-loading');
+                }
+            });
+        }
+    </script>
 @endsection

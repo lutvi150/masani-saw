@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\NilaiController;
@@ -8,9 +9,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/demo', function () {
     return view('welcome');
 });
-Route::get('/', function () {
-    return view('contents.dashboard');
-})->name('dashboard');
+// Route::get('/', function () {
+//     return view('contents.dashboard');
+// })->name('dashboard', );
+Route::controller(Dashboard::class)->group(function () {
+    Route::get('/', 'index')->name('dashboard');
+    Route::get('dashaboard/get-data', 'get_data')->name('dashboard.get-data');
+});
 Route::controller(KriteriaController::class)->group(function () {
     Route::get('kriteria', 'index')->name('kriteria.index');
     Route::get('kriteria/create', 'create')->name('kriteria.create');
@@ -39,4 +44,5 @@ Route::controller(NilaiController::class)->group(function () {
     // other
     Route::post('nilai/update-nilai', 'update_data')->name('nilai.update-data');
     Route::get('nilai/get-nilai', 'get_data')->name('nilai.get-data');
+    Route::get('nilai/get-score-mix-max', 'min_max')->name('nilai.get-score-mix-max');
 });

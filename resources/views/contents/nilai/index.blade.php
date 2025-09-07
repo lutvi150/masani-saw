@@ -80,8 +80,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <button class="btn btn-success btn-sm"> Proses Data</button>
-                            <div class="clearfix"></div>
+                            <div claswebs="clearfix"></div>
                             <table class="table table-striped nilai-table" id="nilai-table">
                                 <thead>
                                     <tr>
@@ -93,7 +92,8 @@
                                     </tr>
                                     <tr>
                                         @foreach ($kriterias as $item)
-                                            <td class="text-center">C{{ $item->code }}</td>
+                                            <td class="text-center">C{{ $item->code }} / {{ $item->bobot }} /
+                                                {{ $item->sifat }}</td>
                                         @endforeach
                                     </tr>
                                 </thead>
@@ -108,11 +108,133 @@
                                         </tr>
                                     @endforeach
                                     <tr>
-                                        <td>Nilai Max</td>
+                                        <td colspan="2">Nilai Max</td>
+                                        @foreach ($kriterias as $item)
+                                            <td class="text-center text-score" id="max-{{ $item->id }}"></td>
+                                        @endforeach
                                     </tr>
                                     <tr>
-                                        <td>Nilai Min</td>
+                                        <td colspan="2">Nilai Min</td>
+                                        @foreach ($kriterias as $item)
+                                            <td class="text-center text-score" id="min-{{ $item->id }}"></td>
+                                        @endforeach
                                     </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Nilai Normalisasi </h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                        aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+
+                            <div claswebs="clearfix"></div>
+                            <table class="table table-striped normalisasi-table" id="nirmalisasi-table">
+                                <thead>
+                                    <tr>
+                                        <td rowspan="2">No</td>
+                                        <td rowspan="2">Altertanif</td>
+                                        @foreach ($kriterias as $item)
+                                            <td class="text-center">{{ $item->nama }}</td>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        @foreach ($kriterias as $item)
+                                            <td class="text-center">C{{ $item->code }} / {{ $item->bobot }} /
+                                                {{ $item->sifat }}</td>
+                                        @endforeach
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($lokasis as $item_lk)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>A{{ $item_lk->code }} - {{ $item_lk->nama_lokasi }}</td>
+                                            @foreach ($kriterias as $item)
+                                                <td class="text-center"
+                                                    id="normalisasi-{{ $item_lk->id }}_{{ $item->id }}"></td>
+                                            @endforeach
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                  <div class="col-md-12 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Nilai Normalisasi </h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                        aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+
+                            <div claswebs="clearfix"></div>
+                            <table class="table table-striped normalisasi-table" id="nirmalisasi-table">
+                                <thead>
+                                    <tr>
+                                        <td rowspan="2">No</td>
+                                        <td rowspan="2">Altertanif</td>
+                                        @foreach ($kriterias as $item)
+                                            <td class="text-center">{{ $item->nama }}</td>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        @foreach ($kriterias as $item)
+                                            <td class="text-center">C{{ $item->code }} / {{ $item->bobot }} /
+                                                {{ $item->sifat }}</td>
+                                        @endforeach
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($lokasis as $item_lk)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>A{{ $item_lk->code }} - {{ $item_lk->nama_lokasi }}</td>
+                                            @foreach ($kriterias as $item)
+                                                <td class="text-center"
+                                                    id="normalisasi-{{ $item_lk->id }}_{{ $item->id }}"></td>
+                                            @endforeach
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
 
@@ -127,6 +249,7 @@
     <script>
         $(document).ready(function() {
             get_data();
+            get_min_max();
             $("#nilai-table").on("click", "td", function() {
                 let colIndex = $(this).index();
                 if (colIndex <= 1) return;
@@ -153,9 +276,24 @@
                 }
             });
         });
+        // $(document).on("input", "#nilai-table input", function() {
+        //     let cellId = $(this).closest("td").attr("id");
+        //     let value = $(this).val();
+
+        //     let parts = cellId.split("_");
+        //     let rowId = parts[0];
+        //     let colId = parts[1];
+
+        //     let normalisasiCell = $("#normalisasi-" + rowId + "_" + colId);
+
+        //     // Masukkan value yang sama
+        //     if (normalisasiCell.length) {
+        //         normalisasiCell.text(value);
+        //     }
+        // });
 
         function saveCell(td, newValue) {
-            let cellId = td.attr("id"); 
+            let cellId = td.attr("id");
             let parts = cellId.split("_");
             let row = parts[0];
             let col = parts[1];
@@ -166,17 +304,36 @@
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     id: cellId,
                     nilai: newValue,
-                    kriteria_id: row,
-                    lokasi_id: col,
+                    kriteria_id: col,
+                    lokasi_id: row,
                 },
                 success: function(res) {
                     Notiflix.Notify.success(res.message);
                     td.removeClass("editing").text(newValue);
+                    normalisasiRow();
                 },
                 error: function(err) {
                     Notiflix.Notify.failure('Gagal simpan');
                     console.error("Gagal simpan", err);
                     td.removeClass("editing").text(newValue); // tetap tampilkan
+                }
+            });
+        }
+        get_min_max = () => {
+            Notiflix.Block.arrows('.text-score');
+            $.ajax({
+                type: "GET",
+                url: "{{ route('nilai.get-score-mix-max') }}",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType: "JSON",
+                success: function(response) {
+                    $.each(response.data, function(indexInArray, valueOfElement) {
+                        $("#min-" + valueOfElement.kriteria_id).text(valueOfElement.min);
+                        $("#max-" + valueOfElement.kriteria_id).text(valueOfElement.max);
+                    });
+                    Notiflix.Block.remove('.text-score');
                 }
             });
         }
@@ -190,137 +347,61 @@
                 },
                 dataType: "JSON",
                 success: function(response) {
-                    $.each(response.data.nilais, function (indexInArray, valueOfElement) { 
-                         $("#"+valueOfElement.lokasi_id+"_"+valueOfElement.kriteria_id).text(valueOfElement.nilai);
+                    $.each(response.data.nilais, function(indexInArray, valueOfElement) {
+                        $("#" + valueOfElement.lokasi_id + "_" + valueOfElement.kriteria_id).text(
+                            valueOfElement.nilai);
                     });
+                    
+                    normalisasiRow();
                     Notiflix.Block.remove('.nilai-table');
                 }
             });
         }
-        add_data = () => {
-            $.ajax({
-                type: "GET",
-                url: "{{ route('kriteria.code') }}",
-                dataType: "JSON",
-                success: function(response) {
-                    $('#code').val(response.data);
-                    $(".text-error").text('');
-                    $('.modal-tambah-title').text('Tambah Data Kriteria');
-                    $('#modal-tambah').modal('show');
-                    $("#form-tambah").attr('action', "{{ route('kriteria.store') }}");
-                    sessionStorage.setItem('action', 'add');
-                    sessionStorage.setItem('method', 'POST')
-                }
-            });
-        }
-        store_data = () => {
-            $(".text-error").text(''); // reset error
-            let data = {
-                nama: $('#nama').val(),
-                sifat: $('#sifat').children("option:selected").val(),
-                bobot: $('#bobot').val(),
-                code: $('#code').val(),
-                deskripsi: $('#deskripsi').val(),
-            }
-            $.ajax({
-                type: sessionStorage.getItem('method'),
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: $("#form-tambah").attr('action'),
-                data: data,
-                dataType: "JSON",
-                success: function(response) {
-                    if (response.status) {
-                        notif_success(response.message);
-                        $('#modal-tambah').modal('hide');
-                        location.reload();
-                    } else {
-                        $.each(response.errors, function(i, v) {
-                            console.log(i);
 
-                            $(".e-" + i).text(v[0]);
-                        });
-                    }
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-                    $(".text-error").text(''); // reset error
-                    if (xhr.status === 422) {
-                        let res = xhr.responseJSON;
-                        $.each(res.errors, function(i, v) {
-                            $(".e-" + i).text(v[0]);
-                        });
-                    } else {
-                        console.log("Error " + xhr.status + ": " + thrownError);
-                    }
-                }
-            });
-        }
-        edit_data = (id) => {
-            $(".text-error").text('');
-            $("#form-tambah").attr('action', "{{ url('kriteria') }}" + "/" + id);
-            $.ajax({
-                type: "GET",
-                url: "/kriteria/" + id + "/edit",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                dataType: "JSON",
-                success: function(response) {
-                    $('#nama').val(response.nama);
-                    $('#sifat').val(response.sifat);
-                    $('#bobot').val(response.bobot);
-                    $('#deskripsi').val(response.deskripsi);
-                    $("#code").val(response.code);
-                    $('.modal-tambah-title').text('Edit Data Kriteria');
-                    $('#modal-tambah').modal('show');
+        function normalisasiRow() {
+            $("#nilai-table tbody tr").each(function() {
+                let sum = 0;
+                let row = $(this);
 
-                    // simpan id ke sessionStorage untuk update nanti
-                    sessionStorage.setItem('action', 'edit');
-                    sessionStorage.setItem('edit_id', id);
-                    sessionStorage.setItem('method', 'PUT')
-                },
-                error: function(xhr) {
-                    console.log("Error load data:", xhr.responseText);
-                }
-            });
-        }
-        delete_data = (id) => {
-            Notiflix.Confirm.show(
-                'Konfirmasi',
-                'Kamu yakin ingin menghapus data ini?',
-                'Ya',
-                'Tidak',
-                function okCb() {
-                    $.ajax({
-                        type: "DELETE",
-                        url: "/kriteria/" + id,
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        dataType: "JSON",
-                        success: function(response) {
-                            if (response.status) {
-                                notif_success(response.message);
-                                location.reload();
-                            } else {
-                                notif_error(response.message);
-                            }
-                        },
-                        error: function(xhr, ajaxOptions, thrownError) {
-                            console.log(xhr.status);
-                            console.log(thrownError);
-                            notif_error("Error " + xhr.status + ": " + thrownError);
+                // ambil semua angka dalam baris ini
+                row.find("td[id]").each(function() {
+                    let val = parseFloat($(this).text().trim()) || 0;
+                    sum += val;
+                });
+
+                // bagi setiap angka dengan total sum baris
+                row.find("td[id]").each(function() {
+                    let cellId = $(this).attr("id"); // contoh: "3_2"
+                    let val = parseFloat($(this).text().trim()) || 0;
+
+                    if (sum > 0 && cellId) {
+                        let hasil = val / sum;
+
+                        // masukkan ke tabel normalisasi
+                        let normalisasiCell = $("#normalisasi-" + cellId);
+                        if (normalisasiCell.length) {
+                            normalisasiCell.text(hasil.toFixed(4)); // bulatkan 4 desimal
                         }
-                    });
+                    }
+                });
+            });
+        }
+        // hitung nilai normalisasi
+        hitungTotalRow = () => {
+            $("#nilai-table tbody tr").each(function() {
+                let total = 0;
+                $(this).find("input").each(function() {
+                    let val = parseFloat($(this).val()) || 0;
+                    total += val;
+                });
 
-                },
-                function cancelCb() {
-                    alert('If you say so...');
-                }, {},
-            );
+                let lastCell = $(this).find("td.total-cell");
+                if (lastCell.length === 0) {
+                    $("#normalisasi-")
+                } else {
+                    lastCell.text(total);
+                }
+            });
         }
     </script>
 @endsection

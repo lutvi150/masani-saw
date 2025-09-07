@@ -56,6 +56,26 @@ class NilaiController extends Controller
             'data'    => $nilai,
         ]);
     }
+    // max admin kriteria
+
+    public function min_max()
+    {
+        $kriterias = Kriteria::all();
+        foreach ($kriterias as $key => $value) {
+            $max      = Nilai::where('kriteria_id', $value->id)->max('nilai');
+            $min      = Nilai::where('kriteria_id', $value->id)->min('nilai');
+            $result[] = [
+                'kriteria_id' => $value->id,
+                'max'         => $max,
+                'min'         => $min,
+            ];
+        }
+        return response()->json([
+            'status'  => true,
+            'message' => 'Data berhasil ditemukan',
+            'data'    => $result,
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      */
