@@ -77,7 +77,7 @@
                                             <td>{{ $item->sifat }}</td>
                                             <td>{{ $item->bobot }}</td>
                                             <td>{{ $item->deskripsi }}</td>
-                                            <td style="width: 10%">
+                                            <td style="width: 15%">
                                                 <button class="btn btn-sm btn-warning" type="button"
                                                     onclick="edit_data({{ $item->id }})"><i class="fa fa-pencil"></i>
                                                     Edit</button>
@@ -159,6 +159,7 @@
                 url: "{{ route('kriteria.code') }}",
                 dataType: "JSON",
                 success: function(response) {
+                    $("#form-tambah").resetForm();
                     $('#code').val(response.data);
                     $(".text-error").text('');
                     $('.modal-tambah-title').text('Tambah Data Kriteria');

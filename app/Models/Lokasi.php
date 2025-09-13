@@ -9,7 +9,7 @@ class Lokasi extends Model
     /** @use HasFactory<\Database\Factories\LokasiFactory> */
     use HasFactory;
     protected $fillable = [
-        'alamat',
+        'nama_lokasi',
         'nama_penyuluh',
         'no_hp',
         'code',

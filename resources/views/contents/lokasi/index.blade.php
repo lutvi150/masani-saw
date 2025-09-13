@@ -46,9 +46,9 @@
                         </div>
                         <div class="x_content">
                             <div class="alert alert-warning" role="alert">
-                                <strong>Pengisian Data Bobot Kriteria</strong>
+                                <strong>Pengisian Data Lokasi</strong>
                                 <ul>
-                                    <li> Data lokasi yang di isi ada data lokasi yang di bawah binaan</li>
+                                    <li> Data lokasi yang di isi adalah data lokasi yang di bawah binaan</li>
                                 </ul>
                             </div>
                             <button type="button" onclick="add_data()" class="btn btn-sm btn-success"><i
@@ -70,8 +70,7 @@
                                             <td>{{ $item->nama_lokasi }}</td>
                                             <td>{{ $item->nama_penyuluh }}</td>
                                             <td>{{ $item->no_hp }}</td>
-                                            <td style="width: 10%">
-                                            <td style="width: 10%">
+                                            <td style="width: 20%">
                                                 <button class="btn btn-sm btn-warning" type="button"
                                                     onclick="edit_data({{ $item->id }})"><i class="fa fa-pencil"></i>
                                                     Edit</button>
@@ -99,41 +98,32 @@
                     <h5 class="modal-title modal-tambah-title">Modal title</h5>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('kriteria.store') }}" id="form-tambah" enctype="multipart/form-data"
+                    <form action="{{ route('lokasi.store') }}" id="form-tambah" enctype="multipart/form-data"
                         method="post">
 
                         <div class="form-group">
                             <label for="">Kode</label>
                             <input type="text" name="code" id="code" class="form-control"
-                                placeholder="Code Kriteria" readonly aria-describedby="helpId">
+                                placeholder="Code Lokasi" readonly aria-describedby="helpId">
                             <small id="helpId" class="text-muted text-error e-code">Help text</small>
                         </div>
                         <div class="form-group">
-                            <label for="">Nama</label>
-                            <input type="text" name="nama" id="nama" class="form-control"
-                                placeholder="Nama Kriteria" aria-describedby="helpId">
-                            <small id="helpId" class="text-muted text-error e-nama">Help text</small>
+                            <label for="">Nama Lokasi</label>
+                            <input type="text" name="nama_lokasi" id="nama_lokasi" class="form-control"
+                                placeholder="Nama Lokasi" aria-describedby="helpId">
+                            <small id="helpId" class="text-muted text-error e-nama_lokasi">Help text</small>
                         </div>
                         <div class="form-group">
-                            <label for="">Sifat</label>
-                            <select name="sifat" class="form-control" id="sifat">
-                                <option value="">Pilih Sifat</option>
-                                <option value="benefit">Benefit</option>
-                                <option value="cost">Cost</option>
-                            </select>
-                            <small id="helpId" class="text-muted text-error e-sifat">Help text</small>
+                            <label for="">Nama Penyuluh</label>
+                            <input type="text" name="nama_penyuluh" id="nama_penyuluh" class="form-control"
+                                placeholder="Nama Penyuluh" aria-describedby="helpId">
+                            <small id="helpId" class="text-muted text-error e-nama_penyuluh">Help text</small>
                         </div>
                         <div class="form-group">
-                            <label for="">Bobot</label>
-                            <input type="number" name="bobot" id="bobot" class="form-control"
-                                placeholder="Bobot Kriteria" aria-describedby="helpId">
-                            <small id="helpId" class="text-muted text-error e-bobot">Help text</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Deskripsi</label>
-                            <textarea name="deskripsi" id="deskripsi" class="form-control" placeholder="Deskripsi Kriteria"
-                                aria-describedby="helpId"></textarea>
-                            <small id="helpId" class="text-muted text-error e-deskripsi">Help text</small>
+                            <label for="">Nomor Hp</label>
+                            <input type="text" name="no_hp" id="no_hp" class="form-control"
+                                placeholder="Nomor Hp" aria-describedby="helpId">
+                            <small id="helpId" class="text-muted text-error e-no_hp">Help text</small>
                         </div>
                     </form>
                 </div>
@@ -150,14 +140,14 @@
         add_data = () => {
             $.ajax({
                 type: "GET",
-                url: "{{ route('kriteria.code') }}",
+                url: "{{ route('lokasi.code') }}",
                 dataType: "JSON",
                 success: function(response) {
                     $('#code').val(response.data);
                     $(".text-error").text('');
-                    $('.modal-tambah-title').text('Tambah Data Kriteria');
+                    $('.modal-tambah-title').text('Tambah Data Lokasi');
                     $('#modal-tambah').modal('show');
-                    $("#form-tambah").attr('action', "{{ route('kriteria.store') }}");
+                    $("#form-tambah").attr('action', "{{ route('lokasi.store') }}");
                     sessionStorage.setItem('action', 'add');
                     sessionStorage.setItem('method', 'POST')
                 }
@@ -166,11 +156,10 @@
         store_data = () => {
             $(".text-error").text(''); // reset error
             let data = {
-                nama: $('#nama').val(),
-                sifat: $('#sifat').children("option:selected").val(),
-                bobot: $('#bobot').val(),
+                nama_lokasi: $('#nama_lokasi').val(),
+                nama_penyuluh: $('#nama_penyuluh').val(),
+                no_hp: $('#no_hp').val(),
                 code: $('#code').val(),
-                deskripsi: $('#deskripsi').val(),
             }
             $.ajax({
                 type: sessionStorage.getItem('method'),
@@ -188,7 +177,6 @@
                     } else {
                         $.each(response.errors, function(i, v) {
                             console.log(i);
-
                             $(".e-" + i).text(v[0]);
                         });
                     }
@@ -210,23 +198,21 @@
         }
         edit_data = (id) => {
             $(".text-error").text('');
-            $("#form-tambah").attr('action', "{{ url('kriteria') }}" + "/" + id);
+            $("#form-tambah").attr('action', "{{ url('lokasi') }}" + "/" + id);
             $.ajax({
                 type: "GET",
-                url: "/kriteria/" + id + "/edit",
+                url: "/lokasi/" + id + "/edit",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 dataType: "JSON",
                 success: function(response) {
-                    $('#nama').val(response.nama);
-                    $('#sifat').val(response.sifat);
-                    $('#bobot').val(response.bobot);
-                    $('#deskripsi').val(response.deskripsi);
+                    $('#nama_lokasi').val(response.nama_lokasi);
+                    $('#nama_penyuluh').val(response.nama_penyuluh);
+                    $('#no_hp').val(response.no_hp);
                     $("#code").val(response.code);
-                    $('.modal-tambah-title').text('Edit Data Kriteria');
+                    $('.modal-tambah-title').text('Edit Data Lokasi');
                     $('#modal-tambah').modal('show');
-
                     // simpan id ke sessionStorage untuk update nanti
                     sessionStorage.setItem('action', 'edit');
                     sessionStorage.setItem('edit_id', id);
@@ -246,7 +232,7 @@
                 function okCb() {
                     $.ajax({
                         type: "DELETE",
-                        url: "/kriteria/" + id,
+                        url: "/lokasi/" + id,
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },

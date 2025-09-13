@@ -30,10 +30,10 @@ class LokasiController extends Controller
     {
         $request->validate([
             'nama_lokasi'   => 'required|string|max:255',
-            'alamat'        => 'required',
             'nama_penyuluh' => 'required',
+            'no_hp'         => 'required|string|max:15|min:10',
+            'code'          => 'required',
         ]);
-
         Lokasi::create($request->all());
         return response()->json([
             'status'  => true,
@@ -56,11 +56,9 @@ class LokasiController extends Controller
     public function edit($id)
     {
         $lokasi = Lokasi::find($id);
-
         if (! $lokasi) {
             return response()->json(['error' => 'Data tidak ditemukan'], 404);
         }
-
         return response()->json($lokasi);
     }
 
@@ -70,15 +68,13 @@ class LokasiController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'nama_lokasi' => 'required|string|max:255',
-            'sifat'       => 'required|in:benefit,cost',
-            'bobot'       => 'required|numeric|min:0',
-            'deskripsi'   => 'nullable|string',
+            'nama_lokasi'   => 'required|string|max:255',
+            'nama_penyuluh' => 'required',
+            'no_hp'         => 'required|string|max:15|min:10',
+            'code'          => 'required',
         ]);
-
         $lokasi = Lokasi::findOrFail($id);
         $lokasi->update($validated);
-
         return response()->json([
             'status'  => true,
             'message' => 'lokasi berhasil diperbarui',
@@ -98,5 +94,18 @@ class LokasiController extends Controller
             'status'  => true,
             'message' => 'lokasi berhasil dihapus',
         ]);
+    }
+    public function lokasi_code()
+    {
+        $last     = Lokasi::orderBy('id', 'desc')->first();
+        $lastCode = $last ? intval(substr((int) $last->code, 1)) : 0;
+        $newCode  = ($last->code + 1);
+        return response()->json(
+            [
+                'status'  => 'success',
+                'message' => 'Kode Lokasi Berhasil Ditambahkan',
+                'data'    => $newCode,
+            ]
+        );
     }
 }

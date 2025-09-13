@@ -33,6 +33,7 @@ Route::controller(LokasiController::class)->group(function () {
     Route::get('lokasi/{id}/edit', 'edit')->name('lokasi.edit');
     Route::put('lokasi/{id}', 'update')->name('lokasi.update');
     Route::delete('lokasi/{id}', 'destroy')->name('lokasi.destroy');
+    Route::get('lokasi/code', 'lokasi_code')->name('lokasi.code');
 });
 Route::controller(NilaiController::class)->group(function () {
     Route::get('nilai', 'index')->name('nilai.index');

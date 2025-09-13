@@ -104,7 +104,7 @@ class KriteriaController extends Controller
     public function kriteria_code()
     {
         $last     = Kriteria::orderBy('id', 'desc')->first();
-        $lastCode = $last ? intval(substr($last->code, 1)) : 0;
+        $lastCode = $last ? intval(substr((int) $last->code, 1)) : 0;
         // $newCode  = 'C' . str_pad($lastCode + 1, 2, '0', STR_PAD_LEFT);
         $newCode = ($lastCode + 1);
         return response()->json(

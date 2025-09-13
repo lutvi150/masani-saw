@@ -17,35 +17,35 @@ class KriteriaSeeder extends Seeder
                 'sifat'     => 'benefit',
                 'bobot'     => 0.3, // 30%
                 'deskripsi' => 'Hasil pengamatan langsung di lahan, semakin tinggi jumlahnya semakin berisiko',
-                'code'      => 'C1',
+                'code'      => '1',
             ],
             [
                 'nama'      => 'Luas Area terdampak dalam m2',
-                'sifat'     => 'cost',
+                'sifat'     => 'ost',
                 'bobot'     => 0.2, // 20%
                 'deskripsi' => 'Semakin luas, semakin serius',
-                'code'      => 'C2',
+                'code'      => '2',
             ],
             [
                 'nama'      => 'Tingkat kerusakan dalam persentase',
                 'sifat'     => 'benefit',
                 'bobot'     => 0.2, // 20%
                 'deskripsi' => 'Semakin tinggi, semakin parah',
-                'code'      => 'C3',
+                'code'      => '3',
             ],
             [
                 'nama'      => 'Jarak dari sumber air dalam meter',
                 'sifat'     => 'benefit',
                 'bobot'     => 0.15, // 15%
                 'deskripsi' => 'Jarak dari sumber air membuat terjadi kerusakan',
-                'code'      => 'C4',
+                'code'      => '4',
             ],
             [
                 'nama'      => 'Musim tanam',
                 'sifat'     => 'benefit',
                 'bobot'     => 0.15, // 15%
                 'deskripsi' => 'Musim tanam membuat terjadi kerusakan',
-                'code'      => 'C5',
+                'code'      => '5',
             ],
         ]);
     }
